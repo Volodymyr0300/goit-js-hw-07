@@ -49,20 +49,27 @@ function onImgClick(e) {
   //     /* options */
   //   });
 
-  let gallery = new SimpleLightbox(".gallery a");
-  gallery.on("show.simplelightbox", function () {
-    // Do something…
-    console.dir(gallery);
+  //   let gallery = new SimpleLightbox(".gallery a");
+  //   gallery.on("show.simplelightbox", function () {
+  //     // Do something…
+  //     // gallery.options.next.simplelightbox;
+  //     console.dir(gallery);
 
-    // for (const item of gallery.elements) {
-    //   console.log(item.firstElementChild);
-    //   console.dir(item.firstElementChild.alt);
-    // }
+  //     // for (const item of gallery.elements) {
+  //     //   console.log(item.firstElementChild);
+  //     //   console.dir(item.firstElementChild.alt);
+  //     // }
 
-    gallery.options.additionalHtml = e.target.alt;
+  //     // gallery.options.additionalHtml = e.target.alt;
+  //     gallery.elements[1].childNodes[0];
+  //     console.log(gallery.elements[1].childNodes[0]);
+  //     gallery.elements[1].children.firstChild.alt;
+  //     console.log(gallery.elements[1].children.firstChild.alt);
+  //   });
 
-    // galleryItems[]
-    // console.log(e.target.alt);
+  new SimpleLightbox(".gallery a", {
+    captionsData: "alt",
+    captionDelay: 250,
   });
 
   divRef.addEventListener("keydown", (e) => {
