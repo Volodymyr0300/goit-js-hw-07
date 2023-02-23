@@ -6,33 +6,42 @@ console.log(galleryItems);
 const divRef = document.querySelector(".gallery");
 console.log(divRef);
 
-function createDivCardMarkup() {
-  return divRef.insertAdjacentHTML(
-    "beforeend",
-    galleryItems
-      .map(({ preview, original, description }) => {
-        return `
+function createDivCardMarkup(items) {
+  return items
+    .map((item) => {
+      return `
           <div class="gallery__item">
-              <a class="gallery__link" href="${original}">
+              <a class="gallery__link" href="${item.original}">
                   <img
                       class="gallery__image"
-                      src="${preview}"
-                      data-source="${original}"
-                      alt="${description}"
+                      src="${item.preview}"
+                      data-source="${item.original}"
+                      alt="${item.description}"
                   />
               </a>
           </div>
           `;
-      })
-      .join("")
-  );
+    })
+    .join("");
 }
 
-createDivCardMarkup();
+const createGalleryMarcup = createDivCardMarkup(galleryItems);
+
+divRef.innerHTML = createGalleryMarcup;
 
 divRef.addEventListener("click", onImgClick);
 
 function onImgClick(e) {
-  console.log(e.target); // img
-  console.log(e.currentTarget); // div
+  e.preventDefault();
+  //   console.log(e.target); // img
+  //   console.log(e.currentTarget); // div
+  //   console.log(e.target.nodeName);
+  if (e.target.nodeName !== "IMG") {
+    return;
+  }
+  //   console.log(e.target.dataset.source);
+
+  const instance = basicLightbox.create(`
+    <img src="${e.target.dataset.source}" width="800" height="600">
+`);
 }
