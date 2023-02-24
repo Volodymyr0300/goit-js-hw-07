@@ -3,41 +3,25 @@ import { galleryItems } from "./gallery-items.js";
 
 const divRef = document.querySelector(".gallery");
 
-function createLinkAndImg(items) {
-  return items
-    .map((item) => {
-      return `
+divRef.innerHTML = galleryItems
+  .map((item) => {
+    return `
             <div class="gallery__item">
                 <a class="gallery__item" href="${item.original}">
                     <img class="gallery__image" src="${item.preview}" alt="${item.description}" />
                 </a>
             </div>
             `;
-    })
-    .join("");
-}
+  })
+  .join("");
 
-const createGaleryMarkup = createLinkAndImg(galleryItems);
+new SimpleLightbox(".gallery a", {
+  captionsData: "alt",
+  captionDelay: 250,
+});
 
-divRef.innerHTML = createGaleryMarkup;
-
-divRef.addEventListener("click", onImgClick);
-
-function onImgClick(e) {
-  e.preventDefault();
-
-  if (e.target.nodeName !== "IMG") {
-    return;
+divRef.addEventListener("keydown", (e) => {
+  if (e.code === "Escape") {
+    gallery.close();
   }
-
-  new SimpleLightbox(".gallery a", {
-    captionsData: "alt",
-    captionDelay: 250,
-  });
-
-  divRef.addEventListener("keydown", (e) => {
-    if (e.code === "Escape") {
-      gallery.close();
-    }
-  });
-}
+});

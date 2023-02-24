@@ -42,6 +42,18 @@ function onImgClick(e) {
   divRef.addEventListener("keydown", (e) => {
     if (e.code === "Escape") {
       instance.close();
+      instance.close(() => console.log("lightbox not visible anymore"));
     }
   });
+
+  //   onShow: (instance) => {
+  //     console.log(instance);
+  //   };
+
+  //   onClose: (instance) => {
+  //     console.log("close");
+  //   };
+
+  const elem = instance.element();
+  console.log(elem);
 }
