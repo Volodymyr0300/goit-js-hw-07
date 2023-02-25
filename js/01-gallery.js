@@ -26,7 +26,11 @@ const createGalleryMarcup = createDivCardMarkup(galleryItems);
 
 divRef.innerHTML = createGalleryMarcup;
 
-divRef.addEventListener("click", onImgClick);
+divRef.addEventListener("click", onImgClick, {
+  onClose: () => {
+    document.removeEventListener("keydown", closeModal);
+  },
+});
 
 function onImgClick(e) {
   e.preventDefault();
@@ -39,21 +43,17 @@ function onImgClick(e) {
 `);
   instance.show();
 
-  divRef.addEventListener("keydown", (e) => {
-    if (e.code === "Escape") {
-      instance.close();
-      instance.close(() => console.log("lightbox not visible anymore"));
+  divRef.addEventListener(
+    "keydown",
+    (e) => {
+      if (e.code === "Escape") {
+        instance.close();
+      }
+    },
+    {
+      onClose: () => {
+        document.removeEventListener("keydown", closeModal);
+      },
     }
-  });
-
-  //   onShow: (instance) => {
-  //     console.log(instance);
-  //   };
-
-  //   onClose: (instance) => {
-  //     console.log("close");
-  //   };
-
-  const elem = instance.element();
-  console.log(elem);
+  );
 }
