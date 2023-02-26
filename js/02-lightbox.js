@@ -19,9 +19,3 @@ new SimpleLightbox(".gallery a", {
   captionsData: "alt",
   captionDelay: 250,
 });
-
-divRef.addEventListener("keydown", (e) => {
-  if (e.code === "Escape") {
-    gallery.close();
-  }
-});

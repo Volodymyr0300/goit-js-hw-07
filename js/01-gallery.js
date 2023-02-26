@@ -38,22 +38,20 @@ function onImgClick(e) {
     return;
   }
 
-  const instance = basicLightbox.create(`
+  const instance = basicLightbox.create(
+    `
     <img src="${e.target.dataset.source}" width="800" height="600">
-`);
-  instance.show();
-
-  divRef.addEventListener(
-    "keydown",
-    (e) => {
-      if (e.code === "Escape") {
-        instance.close();
-      }
-    },
+`,
     {
-      onClose: () => {
-        document.removeEventListener("keydown", closeModal);
-      },
+      onShow: () => document.addEventListener("keydown", onEscPress),
+      onClose: () => document.removeEventListener("keydown", onEscPress),
     }
   );
+  instance.show();
+
+  function onEscPress(e) {
+    if (e.code === "Escape") {
+      instance.close();
+    }
+  }
 }
